@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Leetcode1: Two Sum"
+title:  "Leetcode 1: Two Sum"
 date:   2024-06-13 20:46:40 +0000
 categories: leetcode hash_table
 ---

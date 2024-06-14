@@ -1,22 +1,44 @@
 ---
 layout: post
-title:  "Leetcode 242: Valid Anagram"
+title:  "Leetcode 704: Binary Search"
 date:   2024-06-14 9:30:00 +0000
-categories: leetcode hash_table
+categories: leetcode binary_search
 ---
 
-Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
 
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+You must write an algorithm with O(log n) runtime complexity.
 
-<h2>Hash Table</h2>
-Fundamentally it require the two letters have the same char frequency. The solution is to keep track of 
-the char frequency of the two letter using hash map.
-Time complexity: O(N)
+<h2>Binary Search</h2>
+The input array is already sorted, the binary search algorithm makes use of this, combined with divide
+and conquer idea. When searching in the range [i...j], choose the middle of the array, if the middle
+value is larger than the target, then the target is on the left side; otherwise, target is on the right
+side.
+
+Time complexity: O(log(N))
 
 <h2> Java Code </h2>
 <pre>
 <code>
-
+class Solution {
+    // left and right boundary is inclusive.
+    public int bSearch(int[] nums, int target, int left, int right) {
+        if (left > right) {
+            return -1;
+        }
+        // If left + right is odd, floor to small number.
+        int mid = left + (right-left) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            return bSearch(nums, target, mid+1, right);
+        } else {
+            return bSearch(nums, target, left, mid-1);
+        }
+    }
+    public int search(int[] nums, int target) {
+        return bSearch(nums, target, 0, nums.length-1);
+    }
+}
 </code>
 </pre>

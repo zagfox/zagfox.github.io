@@ -17,6 +17,22 @@ Time complexity: O(N)
 <h2> Java Code </h2>
 <pre>
 <code>
-
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        HashMap<Character, Integer> frequency = new HashMap<>();
+        for(char c : s.toCharArray()) {
+            frequency.put(c, frequency.getOrDefault(c, 0) + 1);
+        }
+        for (char c : t.toCharArray()) {
+            frequency.put(c, frequency.getOrDefault(c, 0) - 1);
+        }
+        for (Map.Entry<Character, Integer> entry : frequency.entrySet()) {
+            if (entry.getValue() != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 </code>
 </pre>

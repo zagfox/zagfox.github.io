@@ -1,22 +1,70 @@
 ---
 layout: post
-title:  "Leetcode 242: Valid Anagram"
+title:  "Leetcode 733: Flood Fill"
 date:   2024-06-14 9:30:00 +0000
-categories: leetcode hash_table
+categories: leetcode matrix
 ---
 
-Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
 
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+You are also given three integers sr, sc, and color. You should perform a flood fill on the image starting from the pixel image[sr][sc].
 
-<h2>Hash Table</h2>
-Fundamentally it require the two letters have the same char frequency. The solution is to keep track of 
-the char frequency of the two letter using hash map.
+To perform a flood fill, consider the starting pixel, plus any pixels connected 4-directionally to the starting pixel of the same color as the starting pixel, plus any pixels connected 4-directionally to those pixels (also with the same color), and so on. Replace the color of all of the aforementioned pixels with color.
+
+Return the modified image after performing the flood fill.
+
+<h2>Depth First Search</h2>
+The DFS approach checks one point at a time, after completion, try to check all its neighbors recursively. A visited helper structure is often needed to avoid duplicate checks.
 Time complexity: O(N)
 
-<h2> Java Code </h2>
+<h2> DFS Java Code </h2>
 <pre>
 <code>
+class Solution {
+    public void dfs(int[][] image, int sr, int sc, int originColor, int color, boolean[][] visited) {
+        int M = image.length;
+        int N = image[0].length;
 
+        if (visited[sr][sc]) return;
+        visited[sr][sc] = true;
+
+        if (image[sr][sc] != originColor) {
+            return;
+        }
+        image[sr][sc] = color;
+        int[][] directions = new int[][]{
+            {1, 0}, {-1, 0}, {0, 1}, {0, -1}
+        };
+        for (int[] direction : directions) {
+            int nr = sr + direction[0];
+            int nc = sc + direction[1];
+            if (nr < 0 || nr >= M || nc < 0 || nc >= N) {
+                continue;
+            }
+            if (visited[nr][nc]) {
+                continue;
+            }
+            dfs(image, nr, nc, originColor, color, visited);
+        }
+    }
+
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int M = image.length;
+        int N = image[0].length;
+        boolean[][] visited = new boolean[M][N];
+        dfs(image, sr, sc, image[sr][sc], color, visited);
+        return image;
+    }
+}
+</code>
+</pre>
+
+<h2>Breath First Search</h2>
+The BFS approach tries to expand on all graph's border at a time. All the graph's border is stored
+in a queue, and in each round, all graph points in the queue is examined and potentially flooded.
+
+<h2> BFS Java Code </h2>
+<pre>
+<code>
 </code>
 </pre>
