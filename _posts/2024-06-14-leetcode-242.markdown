@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Leetcode 242: Valid Anagram"
+date:   2024-06-14 9:30:00 +0000
+categories: leetcode hash_table
+---
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+<h2>Hash Table</h2>
+Fundamentally it require the two letters have the same char frequency. The solution is to keep track of 
+the char frequency of the two letter using hash map.
+Time complexity: O(N)
+
+<h2> Java Code </h2>
+<pre>
+<code>
+
+</code>
+</pre>

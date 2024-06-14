@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "Leetcode125: Two Sum"
+date:   2024-06-14 9:30:00 +0000
+categories: leetcode two_pointer
+---
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+<h2>Two Pointer</h2>
+The idea is to have one pointer at the head and the other pointer at the end of the string. Moving those
+two pointers towards the middle until they meet.
+Time complexity: O(N)
+
+<h2> Java Code </h2>
+<pre>
+<code>
+class Solution {
+
+}
+</code>
+</pre>
