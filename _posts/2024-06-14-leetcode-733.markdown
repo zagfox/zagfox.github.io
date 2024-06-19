@@ -63,8 +63,58 @@ class Solution {
 The BFS approach tries to expand on all graph's border at a time. All the graph's border is stored
 in a queue, and in each round, all graph points in the queue is examined and potentially flooded.
 
+Note that the algorithm should check if the next visited data point color is the same as the starting point original color.
+
 <h2> BFS Java Code </h2>
 <pre>
 <code>
+class Solution {
+    class Point {
+        public int x, y;
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int M = image.length;
+        int N = image[0].length;
+        int originColor = image[sr][sc];
+        boolean[][] visited = new boolean[M][N];
+        Queue<Point> queue = new LinkedList<>();
+        queue.add(new Point(sr, sc));
+        while (!queue.isEmpty()) {
+            Queue<Point> newQueue = new LinkedList<>();
+            while (!queue.isEmpty()) {
+                Point p = queue.remove();
+                if (visited[p.x][p.y]) {
+                    continue;
+                }
+                visited[p.x][p.y] = true;
+                image[p.x][p.y] = color;
+
+                int[][] directions = new int[][]{
+                    {1, 0}, {-1, 0}, {0, 1}, {0, -1}
+                };
+                for (int[] direction : directions) {
+                    int nx = p.x + direction[0];
+                    int ny = p.y + direction[1];
+                    if (nx < 0 || nx >= M || ny < 0 || ny >= N) {
+                        continue;
+                    }
+                    if (visited[nx][ny]) {
+                        continue;
+                    }
+                    if (image[nx][ny] != originColor) {
+                        continue;
+                    }
+                    newQueue.add(new Point(nx, ny));
+                }
+            }
+            queue = newQueue;
+        }
+        return image;
+    }
+}
 </code>
 </pre>
