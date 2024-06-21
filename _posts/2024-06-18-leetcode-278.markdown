@@ -1,42 +1,35 @@
 ---
 layout: post
-title:  "Leetcode 278: First Bad Version"
+title:  "Leetcode 383: Ransom Note"
 date:   2024-06-18 9:30:00 +0000
-categories: leetcode binary_search
+categories: leetcode hash_map
 ---
 
-You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
 
-Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+Each letter in magazine can only be used once in ransomNote.
 
-You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
-
-<h2>Binary Search</h2>
-If one version is bad, all the remaining versions are bad. The idea is binary search. It asked for the first bad version. After selecting the middle point:
-1. If middle point is good, continue searching in the range [mid+1, right]
-2. If middle point is bad, check if middle point's left is good, return middle point in this case.
-   Other wise, continue searching in the range [left, mid-1]
+<h2>Hash Map</h2>
+The idea is to iterate on the magazine and create a map from char->frequency. Then iterate on the ransomNote, decreasing the map's value for each char. And if the final map are all >= 0. It can be constructed.
 
 <h2> Java Code </h2>
 <pre>
 <code>
-public class Solution extends VersionControl {
-    // Left and right boundary is inclusive.
-    public int bSearch(int left, int right) {
-        if (left > right) {
-            return -1;
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character, Integer> freq = new HashMap<>();
+        for (char c : magazine.toCharArray()) {
+            freq.put(c, freq.getOrDefault(c, 0)+1);
         }
-        int mid = left + (right-left)/2;
-        if (!isBadVersion(mid)) {
-            return bSearch(mid+1, right);
-        } else {
-            if (mid == 1) return mid;
-            if (!isBadVersion(mid-1)) return mid;
-            return bSearch(left, mid-1);
+        for (char c : ransomNote.toCharArray()) {
+            freq.put(c, freq.getOrDefault(c, 0) - 1);
         }
-    }
-    public int firstBadVersion(int n) {
-        return bSearch(1, n);
+        for (Map.Entry<Character, Integer> entry : freq.entrySet()) {
+            if (entry.getValue() < 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 </code>
