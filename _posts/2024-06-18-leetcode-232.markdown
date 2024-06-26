@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Leetcode 232: Implement Queue using Stacks"
-date:   2024-06-20 9:30:00 +0000
+date:   2024-06-18 9:30:00 +0000
 categories: leetcode stack
 ---
 

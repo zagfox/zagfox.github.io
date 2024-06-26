@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "Leetcode 876: Middle of the Linked List"
+date:   2024-06-18 9:30:00 +0000
+categories: leetcode special
+---
+
+Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node.
+
+<h2>Quick Slow Pointer</h2>
+Two pointers, the slow pointer move 1 node at a time, and the quick pointer move 2 nodes at a time. When the quick pointer reach the end, the slow pointer is at the middle.
+
+<h2> Java Code </h2>
+<pre>
+<code>
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        if (head == null) return null;
+        ListNode quick = head, slow = head;
+        while (quick != null && quick.next != null) {
+            quick = quick.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+}
+</code>
+</pre>
